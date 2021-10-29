@@ -221,7 +221,7 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                
+                UserDefaults.standard.set(email, forKey: "email")
                 print("Successfully logged user in")
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             }
@@ -238,8 +238,8 @@ class LoginViewController: UIViewController {
             return
         }
         spinner.show(in: view)
-        // Firebase login
         
+        // Firebase login
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] (authResult, error) in
             
             guard let strongSelf = self else {
@@ -255,6 +255,9 @@ class LoginViewController: UIViewController {
                 return
             }
             let user = result.user
+            
+            UserDefaults.standard.set(email, forKey: "email")
+            
             print("Logged In User: \(user)")
             
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
@@ -382,7 +385,7 @@ extension LoginViewController: LoginButtonDelegate {
                     }
                     return
                 }
-                
+                UserDefaults.standard.set(email, forKey: "email")
                 print("Successfully logged user in")
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             }
